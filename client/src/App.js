@@ -32,7 +32,8 @@ function App() {
       .then((res) => {
         //유저 데이타
         console.log(res);
-        setUserInfo(res.data);
+        console.log(res.data[0]);
+        setUserInfo(res.data[0]);
       })
       .catch((err) => console.log(err));
   };
@@ -89,6 +90,7 @@ function App() {
             <Mypage
               getUserInfo={getUserInfo}
               isLogin={isLogin}
+              setIsLogin={setIsLogin}
               userInfo={userInfo}
               setUserInfo={setUserInfo}
               currentPost={currentPost}

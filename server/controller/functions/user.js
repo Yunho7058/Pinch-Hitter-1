@@ -2,6 +2,7 @@ require('dotenv').config();
 const { sign, verify } = require('jsonwebtoken');
 const { User } = require('../../models');
 const bcrypt = require('bcryptjs');
+const { hashPassword } = require('./security');
 
 const authorized = (accessToken) => {
   if (!accessToken) return null;
@@ -87,7 +88,6 @@ module.exports = {
   updateMobile: async (req) => {
     const resObject = {};
     const accessToken = authorized(req.cookies.accessToken);
-
     if (!accessToken) {
       resObject.code = 401;
       resObject.message = '로그인 시간이 만료되었습니다';
@@ -95,7 +95,7 @@ module.exports = {
       return resObject;
     }
     if (req.body.mobile) {
-      const userFindOne = await user.findOne({
+      const userFindOne = await User.findOne({
         where: { mobile: req.body.mobile },
       });
 
@@ -110,10 +110,9 @@ module.exports = {
       }
     }
 
-    await user
-      .update(req.body, {
-        where: { id: accessToken.id },
-      })
+    await User.update(req.body, {
+      where: { id: accessToken.id },
+    })
       .then(() => {
         resObject.code = 201;
         resObjectmessage = '유저 정보를 수정하였습니다';
@@ -128,14 +127,13 @@ module.exports = {
   updatePassword: async (req) => {
     const resObject = {};
     const accessToken = authorized(req.cookies.accessToken);
-
     try {
       if (!accessToken) {
         resObject.code = 401;
         throw '로그인하여 주시기 바랍니다';
       }
 
-      const userData = await user.findOne({ where: { id: accessToken.id } });
+      const userData = await User.findOne({ where: { id: accessToken.id } });
       const match = await bcrypt.compare(
         req.body.password,
         userData.dataValues.password
@@ -146,15 +144,14 @@ module.exports = {
       }
 
       const password = await hashPassword(req.body.new_password);
-      await user
-        .update(
-          {
-            password,
-          },
-          {
-            where: { userId: userData.dataValues.id },
-          }
-        )
+      await User.update(
+        {
+          password,
+        },
+        {
+          where: { id: userData.dataValues.id },
+        }
+      )
         .then(() => {
           resObject.code = 201;
           resObject.message = '비밀번호가 변경 되었습니다';
