@@ -83,141 +83,15 @@ export const Mypage = (props) => {
     msgNewPasswordConfirm: '비밀번호를 재입력해주세요.',
   });
   const [passwordResponseMSG, setPasswordResponseMSG] = useState('');
-  const [myBoardList, setMyBoardList] = useState([
-    {
-      id: 1,
-      user_id: 1,
-      nickname: 'kimcoding1',
-      title: 'CU 대타구합니다',
-      occupation: '편의점',
-      wage: '10,000 원이상',
-      work_date: '2022-01-03',
-      work_place: '강북',
-      content: '1월 1일 도봉구 쌍문동 Gs에서 9~18시까지 대타 구합니다',
-      updatedAt: '2022-01-01',
-      createdAt: '2022-01-01',
-    },
-    {
-      id: 2,
-      user_id: 1,
-      nickname: 'kimcoding1',
-      title: 'GS 대타구합니다',
-      occupation: '편의점',
-      wage: '10,000 원이상',
-      work_date: '2022-01-03',
-      work_place: '강북',
-      content: '1월 1일 도봉구 쌍문동 Gs에서 9~18시까지 대타 구합니다',
-      updatedAt: '2022-01-01',
-      createdAt: '2022-01-01',
-    },
-    {
-      id: 3,
-      user_id: 1,
-      nickname: 'kimcoding1',
-      title: '세븐일레븐 대타구합니다',
-      occupation: '편의점',
-      wage: '10,000 원이상',
-      work_date: '2022-01-03',
-      work_place: '강북',
-      content: '1월 1일 도봉구 쌍문동 Gs에서 9~18시까지 대타 구합니다',
-      updatedAt: '2022-01-01',
-      createdAt: '2022-01-01',
-    },
-  ]);
-  const [myApplyBoardList, setMyApplyBoardList] = useState([
-    {
-      id: 4,
-      user_id: 2,
-      nickname: 'kimcoding2',
-      title: 'CU 대타구합니다',
-      occupation: '편의점',
-      wage: '10,000 원이상',
-      work_date: '2022-01-03',
-      work_place: '강북',
-      content: '1월 1일 도봉구 쌍문동 Gs에서 9~18시까지 대타 구합니다',
-      updatedAt: '2022-01-01',
-      createdAt: '2022-01-01',
-    },
-    {
-      id: 5,
-      user_id: 2,
-      nickname: 'kimcoding2',
-      title: 'GS 대타구합니다',
-      occupation: '편의점',
-      wage: '10,000 원이상',
-      work_date: '2022-01-03',
-      work_place: '강북',
-      content: '1월 1일 도봉구 쌍문동 Gs에서 9~18시까지 대타 구합니다',
-      updatedAt: '2022-01-01',
-      createdAt: '2022-01-01',
-    },
-    {
-      id: 6,
-      user_id: 2,
-      nickname: 'kimcoding2',
-      title: '세븐일레븐 대타구합니다',
-      occupation: '편의점',
-      wage: '10,000 원이상',
-      work_date: '2022-01-03',
-      work_place: '강북',
-      content: '1월 1일 도봉구 쌍문동 Gs에서 9~18시까지 대타 구합니다',
-      updatedAt: '2022-01-01',
-      createdAt: '2022-01-01',
-    },
-  ]);
-  const [allApplicantList, setAllApplicantList] = useState([
-    {
-      id: 1,
-      users_id: 1,
-      boards_id: 1,
-      user_id: 'kimcoding',
-      nickname: '김코딩1',
-      email: 'kimcoding1@naver.com',
-      mobile: '01011111111',
-    },
-    {
-      id: 1,
-      users_id: 2,
-      boards_id: 1,
-      user_id: 'kimcoding',
-      nickname: '김코딩2',
-      email: 'kimcoding1@naver.com',
-      mobile: '01022222222',
-    },
-    {
-      id: 1,
-      users_id: 3,
-      boards_id: 1,
-      user_id: 'kimcoding',
-      nickname: '김코딩3',
-      email: 'kimcoding1@naver.com',
-      mobile: '01033333333',
-    },
-    {
-      id: 1,
-      users_id: 4,
-      boards_id: 2,
-      user_id: 'kimcoding',
-      nickname: '김코딩4',
-      email: 'kimcoding1@naver.com',
-      mobile: '01044444444',
-    },
-    {
-      id: 1,
-      users_id: 5,
-      boards_id: 3,
-      user_id: 'kimcoding',
-      nickname: '김코딩5',
-      email: 'kimcoding1@naver.com',
-      mobile: '01055555555',
-    },
-  ]);
+  const [myBoardList, setMyBoardList] = useState([]);
+  const [myApplyBoardList, setMyApplyBoardList] = useState([]);
+  const [allApplicantList, setAllApplicantList] = useState([]);
 
   // 내가 쓴 게시물 리스트 불러오기
   useEffect(() => {
     console.log(props.userInfo);
     axios({
-      url: `${process.env.REACT_APP_API_URL}/boards/${props.userInfo.id}`,
+      url: `${process.env.REACT_APP_SERVER_URI}boards/getuserboard`,
       method: 'get',
       headers: {
         // Authorization: `Bearer ${props.accessToken}`,
@@ -226,8 +100,9 @@ export const Mypage = (props) => {
       withCredentials: true,
     })
       .then((res) => {
-        console.log(res);
-        setMyBoardList(res.data);
+        console.log(props.userInfo.id);
+        console.log(res.data.boardList);
+        setMyBoardList(res.data.boardList);
       })
       .catch((err) => {
         console.log(err);
@@ -236,8 +111,9 @@ export const Mypage = (props) => {
 
   // 내가 신청한 게시물 리스트 불러오기
   useEffect(() => {
+    console.log(props.userInfo);
     axios({
-      url: `${process.env.REACT_APP_API_URL}/applicants/${props.userInfo.id}`,
+      url: `${process.env.REACT_APP_SERVER_URI}applicants/${props.userInfo.id}`,
       method: 'get',
       headers: {
         // Authorization: `Bearer ${props.accessToken}`,
@@ -246,8 +122,8 @@ export const Mypage = (props) => {
       withCredentials: true,
     })
       .then((res) => {
-        console.log(res);
-        setMyApplyBoardList(res.data);
+        console.log(res.data.applyingBoard);
+        setMyApplyBoardList(res.data.applyingBoard);
       })
       .catch((err) => {
         console.log(err);
@@ -257,7 +133,7 @@ export const Mypage = (props) => {
   // 전체 신청자 리스트 불러오기
   useEffect(() => {
     axios({
-      url: `${process.env.REACT_APP_API_URL}/applicants`,
+      url: `${process.env.REACT_APP_SERVER_URI}applicants`,
       method: 'get',
       headers: {
         // Authorization: `Bearer ${props.accessToken}`,
@@ -266,8 +142,8 @@ export const Mypage = (props) => {
       withCredentials: true,
     })
       .then((res) => {
-        console.log(res);
-        setAllApplicantList(res.data);
+        console.log(res.data.applicantList);
+        setAllApplicantList(res.data.applicantList);
       })
       .catch((err) => {
         console.log(err);
@@ -423,9 +299,10 @@ export const Mypage = (props) => {
   // 내가 신청한 게시물 클릭
   const onClickMyApplyBoard = (board) => {
     console.log('내가 신청한 게시물 클릭');
+    console.log(board);
 
     axios({
-      url: `${process.env.REACT_APP_API_URL}/boards/${board.id}`,
+      url: `${process.env.REACT_APP_SERVER_URI}boards/${board.board_id}`,
       method: 'get',
       headers: {
         // Authorization: `Bearer ${props.accessToken}`,
@@ -435,12 +312,12 @@ export const Mypage = (props) => {
     })
       .then((res) => {
         console.log('신청한 게시물의 정보를 불러옴');
-        console.log(res.data);
+        console.log(res.data.boardList);
         // localStorage.setItem(
         //   'currentPost',
         //   JSON.stringify(res.data.commentedPost)
         // );
-        props.setCurrentPost(res.data);
+        props.setCurrentPost(res.data.boardList);
         navigate('/readpost');
       })
       .catch((err) => {
@@ -485,7 +362,7 @@ export const Mypage = (props) => {
 
     if (inputMobile.length > 0) {
       axios({
-        url: `${process.env.REACT_APP_API_URL}/mobile`,
+        url: `${process.env.REACT_APP_SERVER_URI}mobile`,
         method: 'patch',
         headers: {
           // Authorization: `Bearer ${props.accessToken}`,
@@ -691,12 +568,11 @@ export const Mypage = (props) => {
               <MyBoardsIndexThirdDiv>신청자 연락처</MyBoardsIndexThirdDiv>
               <MyBoardsIndexFourthDiv></MyBoardsIndexFourthDiv>
             </MyBoardsIndexDiv>
-            {/* <MyBoardsMainDiv>
+            <MyBoardsMainDiv>
               {myBoardList.map((board) => {
                 let applicantList = allApplicantList.filter((applicant) => {
-                  return applicant.boards_id === board.id;
+                  return applicant.board_id === board.id;
                 });
-
                 return (
                   <MyBoardsListDiv onClick={() => onClickMyBoard(board)}>
                     <MyBoardsListTitleDiv>{board.title}</MyBoardsListTitleDiv>
@@ -705,10 +581,10 @@ export const Mypage = (props) => {
                         return (
                           <>
                             <MyBoardsListNicknameDiv>
-                              {applicant.nickname}
+                              {applicant.User.nickname}
                             </MyBoardsListNicknameDiv>
                             <MyBoardsListMobileDiv>
-                              {applicant.mobile}
+                              {applicant.User.mobile}
                             </MyBoardsListMobileDiv>
                           </>
                         );
@@ -717,7 +593,7 @@ export const Mypage = (props) => {
                   </MyBoardsListDiv>
                 );
               })}
-            </MyBoardsMainDiv> */}
+            </MyBoardsMainDiv>
           </MyBoardsOuterDiv>
           <MyBoardsOuterDiv>
             <MyBoardsTopDiv>
@@ -735,12 +611,14 @@ export const Mypage = (props) => {
               {myApplyBoardList.map((board) => {
                 return (
                   <MyApplyListDiv onClick={() => onClickMyApplyBoard(board)}>
-                    <MyApplyListTitleDiv>{board.title}</MyApplyListTitleDiv>
+                    <MyApplyListTitleDiv>
+                      {board.Board.title}
+                    </MyApplyListTitleDiv>
                     <MyApplyListWorkplaceDiv>
-                      {board.work_place}
+                      {board.Board.work_place}
                     </MyApplyListWorkplaceDiv>
                     <MyApplyListWorkdateDiv>
-                      {board.work_date}
+                      {board.Board.work_date}
                     </MyApplyListWorkdateDiv>
                   </MyApplyListDiv>
                 );
@@ -754,7 +632,7 @@ export const Mypage = (props) => {
             <MyInformationListDiv>
               <MyInformationIndexDiv>아이디</MyInformationIndexDiv>
               <MyInformationInput
-                value={props.userInfo.user_id}
+                value={props.userInfo.userId}
                 readOnly
               ></MyInformationInput>
               <MyInformationSideDiv></MyInformationSideDiv>

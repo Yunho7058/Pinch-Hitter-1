@@ -15,8 +15,6 @@ import Mypage from './Pages/Mypage';
 import OAuthKakao from './Components/oauth/OAuthKakao';
 import OAuthGoogle from './Components/oauth/OAuthGoogle';
 
-let url = 'https://localhost:4000';
-
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState({});
@@ -68,6 +66,7 @@ function App() {
             <ReadPost
               getUserInfo={getUserInfo}
               isLogin={isLogin}
+              setIsLogin={setIsLogin}
               userInfo={userInfo}
               currentPost={currentPost}
             />

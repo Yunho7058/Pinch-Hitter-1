@@ -361,8 +361,9 @@ function Signup({ openModal, setShowModal }) {
       });
     } else {
       axios
-        .post(`${process.env.REACT_APP_SERVER_URI}signup/signup`, signupInfo, {
+        .post(`${process.env.REACT_APP_SERVER_URI}signup`, signupInfo, {
           headers: { 'Content-Type': 'application/json' },
+          withCredentials: true,
         })
         .then((res) => {
           setIsSignupModal(true);

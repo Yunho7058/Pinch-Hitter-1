@@ -1,13 +1,13 @@
-import axios from "axios";
-import React from "react";
+import axios from 'axios';
+import React from 'react';
 import {
   BrowserRouter,
   Routes,
   Route,
   Link,
   useNavigate,
-} from "react-router-dom";
-import Header from "../Components/Header";
+} from 'react-router-dom';
+import Header from '../Components/Header';
 import {
   WrapperDiv,
   Head,
@@ -18,7 +18,7 @@ import {
   IndexDiv,
   RContentTextarea,
   CompleteButton,
-} from "../Components/CreatePostComponents";
+} from '../Components/CreatePostComponents';
 import {
   RModal,
   FixButton,
@@ -26,50 +26,50 @@ import {
   DeleteButton,
   ButtonDiv,
   TitleWrapper,
-} from "../Components/ReadPostComponents";
-import { Modal } from "../Components/Modal";
+} from '../Components/ReadPostComponents';
+import { Modal } from '../Components/Modal';
 
 export const ReadPost = (props) => {
   const navigate = useNavigate();
 
   // 지원하기 버튼 누르면 지원자 정보 post요청
   const applyButton = () => {
-    console.log("지원하기 버튼 클릭");
+    console.log('지원하기 버튼 클릭');
 
     axios({
       url: `${process.env.REACT_APP_API_URL}/applicants`,
-      method: "post",
+      method: 'post',
       data: {
         boards_id: props.currentPost.id,
       },
       withCredentials: true,
     })
       .then(() => {
-        alert("지원을 완료하셨습니다.");
-        navigate("/");
+        alert('지원을 완료하셨습니다.');
+        navigate('/');
       })
       .catch((err) => console.log(err));
   };
 
   // 게시물 수정페이지로 이동
   const fixPostButton = () => {
-    console.log("수정 버튼 클릭");
+    console.log('수정 버튼 클릭');
 
-    navigate("/editpost");
+    navigate('/editpost');
   };
 
   // 게시물 삭제 요청
   const deletePostButton = () => {
-    console.log("삭제 버튼 클릭");
+    console.log('삭제 버튼 클릭');
 
     axios({
       url: `${process.env.REACT_APP_API_URL}/boards/${props.currentPost.id}`,
-      method: "delete",
+      method: 'delete',
       withCredentials: true,
     })
       .then((res) => {
         alert(res.data);
-        navigate("/");
+        navigate('/');
       })
       .catch((err) => console.log(err));
   };
@@ -79,6 +79,7 @@ export const ReadPost = (props) => {
       <Header
         hadleLoginVerification={props.hadleLoginVerification}
         isLogin={props.isLogin}
+        setIsLogin={props.setIsLogin}
       />
       <WrapperDiv>
         <Body>

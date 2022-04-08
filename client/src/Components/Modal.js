@@ -1,9 +1,9 @@
-import { useState } from "react";
-import styled from "styled-components";
-import Login from "../Pages/Login";
-import Signup from "../Pages/Signup";
-import { RouteBtn } from "./RouteBtn";
-import { BiLogIn } from "react-icons/bi";
+import { useState } from 'react';
+import styled from 'styled-components';
+import Login from '../Pages/Login';
+import Signup from '../Pages/Signup';
+import { RouteBtn } from './RouteBtn';
+import { BiLogIn } from 'react-icons/bi';
 
 export const ModalBack = styled.div`
   position: fixed;
@@ -92,7 +92,7 @@ export const ModalSignupView = styled.div`
   }
 `;
 
-export const Modal = ({ setIsLogin, isLogin }) => {
+export const Modal = ({ setIsLogin, isLogin, getUserInfo }) => {
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -147,6 +147,7 @@ export const Modal = ({ setIsLogin, isLogin }) => {
                   setIsLogin={setIsLogin}
                   openModal={openModal}
                   setShowModal={setShowModal}
+                  getUserInfo={getUserInfo}
                 />
               </ModalView>
             </ModalBack>

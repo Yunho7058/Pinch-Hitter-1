@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require('../controller/board');
 
 router.get('/', controller.getAllBoard);
-router.get('/:userId', controller.getUserBoard);
+router.get('/getuserboard', controller.getUserBoard);
 router.get('/:boardId', controller.getBoard);
 router.post('/', controller.createBoard);
 router.patch('/', controller.updateBoard);

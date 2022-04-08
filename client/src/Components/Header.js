@@ -1,7 +1,7 @@
-import { Modal } from "./Modal";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import styled from "styled-components";
+import { Modal } from './Modal';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import styled from 'styled-components';
 
 export const HeaderBack = styled.div`
   background-color: #d3dedc;
@@ -20,15 +20,15 @@ export const HeaderBack = styled.div`
   }
 `;
 
-function Header({ setIsLogin, isLogin }) {
+function Header({ setIsLogin, isLogin, getUserInfo }) {
   let navigate = useNavigate();
 
   function handleGoHom() {
-    navigate("/");
+    navigate('/');
   }
 
   useEffect(() => {
-    if (window.localStorage.getItem("IsRefresh")) {
+    if (window.localStorage.getItem('IsRefresh')) {
       setIsLogin(true);
     }
   }, []);
@@ -37,7 +37,11 @@ function Header({ setIsLogin, isLogin }) {
     <div>
       <HeaderBack>
         <img src="img/pinchLog_remove.png" onClick={handleGoHom} />
-        <Modal setIsLogin={setIsLogin} isLogin={isLogin} />
+        <Modal
+          setIsLogin={setIsLogin}
+          isLogin={isLogin}
+          getUserInfo={getUserInfo}
+        />
       </HeaderBack>
     </div>
   );
