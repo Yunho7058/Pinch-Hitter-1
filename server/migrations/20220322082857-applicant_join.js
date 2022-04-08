@@ -5,6 +5,7 @@ module.exports = {
     await queryInterface.addConstraint("applicants", {
       fields: ["user_id"],
       type: "foreign key",
+      name: "user_applicants_key",
       references: {
         table: "Users",
         field: "id",
@@ -15,6 +16,7 @@ module.exports = {
     await queryInterface.addConstraint("applicants", {
       fields: ["board_id"],
       type: "foreign key",
+      name: "board_applicants_key",
       references: {
         table: "Boards",
         field: "id",
@@ -25,7 +27,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeColumn("applicants", "user_id");
-    await queryInterface.removeColumn("applicants", "board_id");
+    await queryInterface.removeConstraint("applicants", "user_applicants_key");
+    await queryInterface.removeConstraint("applicants", "board_applicants_key");
   },
 };

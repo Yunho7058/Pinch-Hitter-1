@@ -2,7 +2,7 @@ const board = require('./functions/board');
 const { createBoard, updateBoard, deleteBoard } = require('./functions/board');
 const { isAuthorized } = require('./functions/user');
 const { participate, cancelParticipate } = require('./functions/applicant');
-const { Board, User } = require('../models');
+const { Board, User, applicant } = require('../models');
 
 module.exports = {
   createBoard: async (req, res) => {
@@ -20,11 +20,11 @@ module.exports = {
   getAllBoard: async (req, res) => {
     try {
       const boardList = await Board.findAll({
-        // include: [{
-        //   model : User,
-        //   required : true,
-        //   attributes: ['nickname']
-        // }]
+        include: [{
+          model : User,
+          required : true,
+          attributes: ['nickname']
+        }]
       });
       res.status(200).json({ boardList });
     } catch (err) {
@@ -39,13 +39,14 @@ module.exports = {
     } else {
       try {
         const boardList = await Board.findAll({
-          // include: [{
-          //   model : User,
-          //   attributes: ['nickname']
-          // }],
+          include: [{
+            model : User,
+            required : true,
+            attributes: ['nickname']
+          }],
           where: { user_id: userInfo.id },
         });
-        console.log(boardList);
+
         res.status(200).json({ boardList });
       } catch (err) {
         res.status(400).json({ message: '잘못된 요청입니다' });
@@ -60,6 +61,11 @@ module.exports = {
     } else {
       try {
         const boardList = await Board.findOne({
+          include: [{
+            model : User,
+            required : true,
+            attributes: ['nickname']
+          }],
           where: { id: boardId },
         });
         res.status(200).json({ boardList });
@@ -83,7 +89,13 @@ module.exports = {
       res.status(401).json({ message: '로그인이 필요합니다' });
     } else {
       try {
-        const applicantList = await applicant.findAll({});
+        const applicantList = await applicant.findAll({
+          include: [{
+            model : User,
+            required : true,
+            attributes: [ 'userId' , 'nickname' , 'email' , 'mobile' ]
+          }],
+        });
         res.status(200).json({ applicantList });
       } catch (err) {
         res.status(400).json({ message: '잘못된 요청입니다' });
@@ -101,6 +113,11 @@ module.exports = {
       try {
         console.log(postId);
         const applyingBoard = await Board.findOne({
+          include: [{
+            model : Board,
+            required : true,
+            attributes: [ 'title', 'work_date', 'work_place' ]
+          }],
           where: { id: BoardId },
         });
         console.log(applyingBoard);

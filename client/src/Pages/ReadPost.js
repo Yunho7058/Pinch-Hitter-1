@@ -37,7 +37,7 @@ export const ReadPost = (props) => {
     console.log("지원하기 버튼 클릭");
 
     axios({
-      url: `${process.env.REACT_APP_SERVER_URI}/applicants`,
+      url: `${process.env.REACT_APP_API_URL}/applicants`,
       method: "post",
       data: {
         boards_id: props.currentPost.id,
@@ -63,7 +63,7 @@ export const ReadPost = (props) => {
     console.log("삭제 버튼 클릭");
 
     axios({
-      url: `${process.env.REACT_APP_SERVER_URI}/boards/${props.currentPost.id}`,
+      url: `${process.env.REACT_APP_API_URL}/boards/${props.currentPost.id}`,
       method: "delete",
       withCredentials: true,
     })

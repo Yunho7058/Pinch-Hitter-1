@@ -69,7 +69,7 @@ export const CreatPost = (props) => {
 
     if (inputTitle.length > 0 && textareaContent.length > 0) {
       axios({
-        url: `${process.env.REACT_APP_SERVER_URI}/boards`,
+        url: `${process.env.REACT_APP_API_URL}/boards`,
         method: "post",
         data: {
           title: inputTitle,

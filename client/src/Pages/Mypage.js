@@ -217,7 +217,7 @@ export const Mypage = (props) => {
   useEffect(() => {
     console.log(props.userInfo);
     axios({
-      url: `${process.env.REACT_APP_SERVER_URI}boards/${props.userInfo.id}`,
+      url: `${process.env.REACT_APP_API_URL}/boards/${props.userInfo.id}`,
       method: 'get',
       headers: {
         // Authorization: `Bearer ${props.accessToken}`,
@@ -234,45 +234,45 @@ export const Mypage = (props) => {
       });
   }, []);
 
-  // // 내가 신청한 게시물 리스트 불러오기
-  // useEffect(() => {
-  //   axios({
-  //     url: `${process.env.REACT_APP_SERVER_URI}applicants/${props.userInfo.id}`,
-  //     method: 'get',
-  //     headers: {
-  //       // Authorization: `Bearer ${props.accessToken}`,
-  //       'Content-Type': 'application/json',
-  //     },
-  //     withCredentials: true,
-  //   })
-  //     .then((res) => {
-  //       console.log(res);
-  //       setMyApplyBoardList(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  // 내가 신청한 게시물 리스트 불러오기
+  useEffect(() => {
+    axios({
+      url: `${process.env.REACT_APP_API_URL}/applicants/${props.userInfo.id}`,
+      method: 'get',
+      headers: {
+        // Authorization: `Bearer ${props.accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    })
+      .then((res) => {
+        console.log(res);
+        setMyApplyBoardList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-  // // 전체 신청자 리스트 불러오기
-  // useEffect(() => {
-  //   axios({
-  //     url: `${process.env.REACT_APP_SERVER_URI}applicants`,
-  //     method: 'get',
-  //     headers: {
-  //       // Authorization: `Bearer ${props.accessToken}`,
-  //       'Content-Type': 'application/json',
-  //     },
-  //     withCredentials: true,
-  //   })
-  //     .then((res) => {
-  //       console.log(res);
-  //       setAllApplicantList(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  // 전체 신청자 리스트 불러오기
+  useEffect(() => {
+    axios({
+      url: `${process.env.REACT_APP_API_URL}/applicants`,
+      method: 'get',
+      headers: {
+        // Authorization: `Bearer ${props.accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    })
+      .then((res) => {
+        console.log(res);
+        setAllApplicantList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   // 닉네임 또는 모바일 input창 입력값 변경
   const handleInputValue = (e) => {
@@ -425,7 +425,7 @@ export const Mypage = (props) => {
     console.log('내가 신청한 게시물 클릭');
 
     axios({
-      url: `${process.env.REACT_APP_SERVER_URI}boards/${board.id}`,
+      url: `${process.env.REACT_APP_API_URL}/boards/${board.id}`,
       method: 'get',
       headers: {
         // Authorization: `Bearer ${props.accessToken}`,
@@ -485,7 +485,7 @@ export const Mypage = (props) => {
 
     if (inputMobile.length > 0) {
       axios({
-        url: `${process.env.REACT_APP_SERVER_URI}mobile`,
+        url: `${process.env.REACT_APP_API_URL}/mobile`,
         method: 'patch',
         headers: {
           // Authorization: `Bearer ${props.accessToken}`,

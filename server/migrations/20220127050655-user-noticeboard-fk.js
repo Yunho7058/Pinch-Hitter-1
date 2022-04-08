@@ -5,6 +5,7 @@ module.exports = {
     await queryInterface.addConstraint("Boards", {
       fields: ["user_id"],
       type: "foreign key",
+      name: "user_board_key",
       references: {
         table: "Users",
         field: "id",
@@ -15,6 +16,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeColumn("Boards", "user_id");
+    await queryInterface.removeConstraint("Boards", "user_board_key");
   },
 };

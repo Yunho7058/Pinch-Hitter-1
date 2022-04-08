@@ -9,7 +9,6 @@ export ACCESS_SECRET=$(aws ssm get-parameters --region ap-northeast-2 --names AC
 export S3_DOMAIN=$(aws ssm get-parameters --region ap-northeast-2 --names S3_DOMAIN --query Parameters[0].Value | sed 's/"//g')
 export PORT=$(aws ssm get-parameters --region ap-northeast-2 --names PORT --query Parameters[0].Value | sed 's/"//g')
 export NODE_ENV=$(aws ssm get-parameters --region ap-northeast-2 --names NODE_ENV --query Parameters[0].Value | sed 's/"//g')
-export PinchHitterUrl=$(aws ssm get-parameters --region ap-northeast-2 --names PinchHitterUrl --query Parameters[0].Value | sed 's/"//g')
-
+export REACT_APP_API_URL=$(aws ssm get-parameters --region ap-northeast-2 --names REACT_APP_API_URL --query Parameters[0].Value | sed 's/"//g')
 
 authbind --deep pm2 start app.js

@@ -1,8 +1,8 @@
-import axios from 'axios';
-import { useState } from 'react';
-import '../App.css';
-import styled, { keyframes } from 'styled-components';
-import { AiOutlineDoubleRight } from 'react-icons/ai';
+import axios from "axios";
+import { useState } from "react";
+import "../App.css";
+import styled, { keyframes } from "styled-components";
+import { AiOutlineDoubleRight } from "react-icons/ai";
 
 export const LoginBack = styled.div`
   display: flex;
@@ -136,7 +136,7 @@ function Login({
   getUserInfo,
 }) {
   //입력 정보와 성공실패 메세지
-  const [loginInfo, setLoginInfo] = useState({ user_id: '', password: '' });
+  const [loginInfo, setLoginInfo] = useState({ user_id: "", password: "" });
   const [failureLoginMsg, setFailureLoginMsg] = useState(<br></br>);
 
   const inputValue = (key) => (e) => {
@@ -145,23 +145,23 @@ function Login({
 
   const handleLogin = () => {
     if (!(loginInfo.user_id, loginInfo.password)) {
-      setFailureLoginMsg('아이디와 비밀번호를 입력해 주세요.');
+      setFailureLoginMsg("아이디와 비밀번호를 입력해 주세요.");
     } else {
       axios
         .post(`${process.env.REACT_APP_SERVER_URI}login`, loginInfo, {
-          headers: { 'Content-Type': 'application/json' },
+          headers: { "Content-Type": "application/json" },
           withCredentials: true,
         })
         .then((res) => {
-          window.localStorage.setItem('IsRefresh', true);
+          window.localStorage.setItem("IsRefresh", true);
           setIsLogin(true);
           getUserInfo();
           openModal();
         })
         .catch((err) => {
-          setFailureLoginMsg('아이디 또는 비밀번호가 일치하지 않습니다.');
+          setFailureLoginMsg("아이디 또는 비밀번호가 일치하지 않습니다.");
           console.log(err);
-          console.log('로그인 중 err');
+          console.log("로그인 중 err");
         });
     }
   };
@@ -196,12 +196,12 @@ function Login({
           <LoginInput
             type="id"
             placeholder="아이디"
-            onChange={inputValue('user_id')}
+            onChange={inputValue("user_id")}
           />
           <LoginInput
             type="password"
             placeholder="비밀번호"
-            onChange={inputValue('password')}
+            onChange={inputValue("password")}
           />
           <LoginFailMsg>{failureLoginMsg}</LoginFailMsg>
         </div>
