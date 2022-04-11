@@ -49,7 +49,6 @@ export const FilterBack = styled.div`
   width: 95vw;
   position: relative;
   border: 1px solid rgba(70, 130, 180, 0.2);
-
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   display: flex;
@@ -57,7 +56,6 @@ export const FilterBack = styled.div`
   justify-content: space-around;
   align-items: center;
   min-width: 500px;
-
   &.on {
     overflow: hidden;
     transition: 1s;
@@ -90,7 +88,6 @@ export const FilterElementList = styled.div`
   width: 120px;
   display: flex;
   flex-direction: column;
-
   justify-content: center;
 `;
 export const FilterSearchBtn = styled.button``;
@@ -373,7 +370,6 @@ export const MainPosts = ({ setCurrentPost }) => {
         console.log(res);
         console.log(res.data.boardList);
         setAllPost(res.data.boardList);
-        //res.data.data -> state 담기
       })
       .catch((err) => {
         console.log(err, '전체 게시물 불러오기 err');
@@ -388,8 +384,8 @@ export const MainPosts = ({ setCurrentPost }) => {
         <FilterList>
           <FilterTitle>직종</FilterTitle>
           <FilterElementList>
-            {list.occupation.map((el) => (
-              <div key={el.id}>
+            {list.occupation.map((el, idx) => (
+              <div key={idx}>
                 <input
                   type="checkbox"
                   id={el}
@@ -397,7 +393,7 @@ export const MainPosts = ({ setCurrentPost }) => {
                   value="occupation"
                   checked={filterPost.occupation.includes(el)}
                 ></input>
-                <label for={el}>{el}</label>
+                <label htmlFor={el}>{el}</label>
               </div>
             ))}
           </FilterElementList>
@@ -406,8 +402,8 @@ export const MainPosts = ({ setCurrentPost }) => {
         <FilterList>
           <FilterTitle>시급</FilterTitle>
           <FilterElementList>
-            {list.wage.map((el) => (
-              <div key={el.id}>
+            {list.wage.map((el, idx) => (
+              <div key={idx}>
                 <input
                   type="checkbox"
                   id={el}
@@ -415,7 +411,7 @@ export const MainPosts = ({ setCurrentPost }) => {
                   value="wage"
                   checked={filterPost.wage.includes(el)}
                 ></input>
-                <label for={el}>{el}</label>
+                <label htmlFor={el}>{el}</label>
               </div>
             ))}
           </FilterElementList>
@@ -424,8 +420,8 @@ export const MainPosts = ({ setCurrentPost }) => {
         <FilterList>
           <FilterTitle>위치</FilterTitle>
           <FilterElementList>
-            {list.work_place.map((el) => (
-              <div key={el.id}>
+            {list.work_place.map((el, idx) => (
+              <div key={idx}>
                 <input
                   type="checkbox"
                   id={el}
@@ -433,7 +429,7 @@ export const MainPosts = ({ setCurrentPost }) => {
                   value="work_place"
                   checked={filterPost.work_place.includes(el)}
                 ></input>
-                <label for={el}>{el}</label>
+                <label htmlFor={el}>{el}</label>
               </div>
             ))}
           </FilterElementList>

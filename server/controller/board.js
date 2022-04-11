@@ -28,6 +28,7 @@ module.exports = {
           },
         ],
       });
+
       res.status(200).json({ boardList });
     } catch (err) {
       res.status(400).json({ message: '잘못된 요청입니다' });
