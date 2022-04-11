@@ -37,10 +37,10 @@ export const ReadPost = (props) => {
     console.log('지원하기 버튼 클릭');
 
     axios({
-      url: `${process.env.REACT_APP_API_URL}/applicants`,
+      url: `${process.env.REACT_APP_SERVER_URI}applicants`,
       method: 'post',
       data: {
-        boards_id: props.currentPost.id,
+        board_id: props.currentPost.id,
       },
       withCredentials: true,
     })
@@ -63,7 +63,7 @@ export const ReadPost = (props) => {
     console.log('삭제 버튼 클릭');
 
     axios({
-      url: `${process.env.REACT_APP_API_URL}/boards/${props.currentPost.id}`,
+      url: `${process.env.REACT_APP_SERVER_URI}boards/${props.currentPost.id}`,
       method: 'delete',
       withCredentials: true,
     })
@@ -107,7 +107,7 @@ export const ReadPost = (props) => {
           {props.isLogin === true ? (
             <>
               {(props.userInfo.nickname ===
-                String(props.currentPost.nickname)) ===
+                String(props.currentPost.User.nickname)) ===
               true ? (
                 <ButtonDiv>
                   <FixButton onClick={fixPostButton}>수정</FixButton>

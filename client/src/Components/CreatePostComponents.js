@@ -169,7 +169,7 @@ const StyleDatePicker = styled(DatePicker)`
     position: relative;
     color: black;
     font-size: 18.5px;
-    width: 100px;
+    width: 140px;
     height: 30px;
   }
 `;

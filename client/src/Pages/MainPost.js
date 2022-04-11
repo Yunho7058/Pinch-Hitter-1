@@ -1,78 +1,90 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-
+import { AiFillCaretDown, AiFillCaretUp } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { CalendaMain } from '../Components/CreatePostComponents';
 
-//! git 소대문자 인식하라는 설정
-//https://papababo.tistory.com/entry/git-%EC%9D%80-%ED%8F%B4%EB%8D%94%ED%8C%8C%EC%9D%BC%EB%AA%85%EC%9D%98-%EB%8C%80%EC%86%8C%EB%AC%B8%EC%9E%90%EB%A5%BC-%EA%B0%9C%EB%AC%B4%EC%8B%9C%ED%95%9C%EB%8B%A4-%EA%B7%B8%EB%9F%BC-%EC%9A%B0%EC%A7%B8
-
 export const PostBackground = styled.div`
   margin: 30px;
   margin-top: 15px;
-  display: grid;
-  grid-template-columns: repeat(3, 1.2fr);
-  grid-auto-rows: 24%;
-  column-gap: 10px;
-  row-gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: center;
 `;
 
 export const Post = styled.div`
-  border-radius: 10px;
-  padding: 10px;
-  width: 260px;
-  height: 350px;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  width: 200px;
+  height: 250px;
   margin: 15px;
-  border: 1px solid #ffc0cb;
   align-items: center;
   flex-direction: column;
   display: flex;
   justify-content: space-between;
   transition: 600ms;
+  cursor: pointer;
   &:hover {
-    transform: translate(0px, -20px);
+    transform: translate(0px, -10px);
     transition: 600ms;
+  }
+  > img {
+    width: 100%;
+    height: 50%;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
   }
 `;
 
 export const PostContents = styled.div`
-  width: 100%;
-  height: 150px;
+  width: 92%;
+  height: 40%;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 10px;
   background-color: white;
+  margin-top: 10px;
   margin-bottom: 10px;
-  border: 1px solid rgb(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0, 0.1);
 `;
 
 export const FilterBack = styled.div`
-  width: 95vw;
+  width: 100vw;
   position: relative;
   border: 1px solid rgba(70, 130, 180, 0.2);
+  border-top: 0px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+  flex-direction: column;
   min-width: 500px;
   &.on {
     overflow: hidden;
-    transition: 1s;
+
     height: 480px;
   }
   &.off {
     border: 0px solid rgba(0, 0, 0, 0.3);
     overflow: hidden;
     height: 0px;
-    transition: 1s;
+
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
   }
 `;
+export const FliterBody = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+`;
 
 export const Line = styled.div`
-  border: 0.9px solid rgba(0, 0, 0, 0.5);
+  border-left: 0.9px dashed rgba(0, 0, 0, 0.8);
   height: 250px;
 `;
 export const FilterList = styled.div`
@@ -81,24 +93,80 @@ export const FilterList = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  &.calenda {
+    height: 100px;
+    flex-direction: row;
+    justify-content: center;
+  }
 `;
-export const FilterTitle = styled.div``;
+export const FilterTitle = styled.div`
+  font-size: 18px;
+  &.day {
+    position: absolute;
+    left: -40px;
+    top: 28px;
+  }
+`;
 export const FilterElementList = styled.div`
   height: 280px;
   width: 120px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  &.calenda {
+    position: relative;
+    height: 100px;
+    width: 320px;
+    min-width: 320px;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+  }
 `;
-export const FilterSearchBtn = styled.button``;
+export const FilterSearchBtn = styled.div`
+  width: 200px;
+  height: 30px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: rgb(211, 222, 215);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 0px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+`;
+export const InputBox = styled.input`
+  border: none;
+`;
+export const InitializeBtnBack = styled.div`
+  display: flex;
+  justify-content: right;
+  margin-right: 30px;
+`;
+export const InitializeBtn = styled.div`
+  cursor: pointer;
+  line-height: 30px;
+  text-align: center;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 80px;
+  font-size: 13px;
+  height: 30px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px 1px #dadce0;
+  &:active {
+    box-shadow: 1px 1px 1px 0px #dadce0;
+    position: relative;
+    right: -1px;
+    top: 1px;
+  }
+`;
 
 export const MainPosts = ({ setCurrentPost }) => {
-  // 함수, 직종 = 맞는 직종 이미지
-  // 게시판아이디 직종 제목
-  let local = window.localStorage;
   const navigate = useNavigate();
   const handlePost = (post) => {
-    console.log('게시물 눌렀음');
     setCurrentPost(post);
     navigate('/readpost');
   };
@@ -107,128 +175,6 @@ export const MainPosts = ({ setCurrentPost }) => {
   const handleFilterBoxBtn = () => {
     setIsFilterBox(!isFilterBox);
   };
-  // const dumy = [
-  //   {
-  //     id: 0,
-  //     user_id: 11,
-  //     nickname: "김코딩",
-  //     title: "테스트 제목입니다",
-  //     occupation: "패스트푸드점",
-  //     wage: "10,000 원이상",
-  //     work_date: "2022-04-14",
-  //     work_place: "강북",
-  //     content: "테스트 내용입니다",
-  //     createdAt: "2022-03-03",
-  //   },
-  //   {
-  //     id: 1,
-  //     user_id: 11,
-  //     nickname: "김코딩",
-  //     title: "테스트 제목입니다",
-  //     occupation: "패스트푸드점",
-  //     wage: "10,000 원이상",
-  //     work_date: "2022-04-14",
-  //     work_place: "강서",
-  //     content: "테스트 내용입니다",
-  //     createdAt: "2022-03-03",
-  //   },
-  //   {
-  //     id: 2,
-  //     user_id: 11,
-  //     nickname: "김코딩",
-  //     title: "테스트 제목입니다",
-  //     occupation: "주유소",
-  //     wage: "12,000 원이상",
-  //     work_date: "2022-04-14",
-  //     work_place: "강남",
-  //     content: "테스트 내용입니다",
-  //     createdAt: "2022-03-03",
-  //   },
-  //   {
-  //     id: 3,
-  //     user_id: 11,
-  //     nickname: "김코딩",
-  //     title: "테스트 제목입니다",
-  //     occupation: "운전",
-  //     wage: "10,000 원이상",
-  //     work_date: "2022-04-14",
-  //     work_place: "강동",
-  //     content: "테스트 내용입니다",
-  //     createdAt: "2022-03-03",
-  //   },
-  //   {
-  //     id: 4,
-  //     user_id: 11,
-  //     nickname: "김코딩",
-  //     title: "테스트 제목입니다",
-  //     occupation: "편의점",
-  //     wage: "10,000 원이상",
-  //     work_date: "2022-04-14",
-  //     work_place: "강서",
-  //     content: "테스트 내용입니다",
-  //     createdAt: "2022-03-03",
-  //   },
-  //   {
-  //     id: 5,
-  //     user_id: 11,
-  //     nickname: "김코딩",
-  //     title: "테스트 제목입니다",
-  //     occupation: "패스트푸드점",
-  //     wage: "20,000 원이상",
-  //     work_date: "2022-04-14",
-  //     work_place: "강남",
-  //     content: "테스트 내용입니다",
-  //     createdAt: "2022-03-03",
-  //   },
-  //   {
-  //     id: 6,
-  //     user_id: 11,
-  //     nickname: "김코딩",
-  //     title: "테스트 제목입니다",
-  //     occupation: "카페",
-  //     wage: "15,000 원이상",
-  //     work_date: "2022-04-14",
-  //     work_place: "강남",
-  //     content: "테스트 내용입니다",
-  //     createdAt: "2022-03-03",
-  //   },
-  //   {
-  //     id: 7,
-  //     user_id: 11,
-  //     nickname: "김코딩",
-  //     title: "테스트 제목입니다",
-  //     occupation: "일반식당",
-  //     wage: "10,000 원이상",
-  //     work_date: "2022-04-14",
-  //     work_place: "강서",
-  //     content: "테스트 내용입니다",
-  //     createdAt: "2022-03-03",
-  //   },
-  //   {
-  //     id: 8,
-  //     user_id: 11,
-  //     nickname: "김코딩",
-  //     title: "테스트 제목입니다",
-  //     occupation: "마트",
-  //     wage: "20,000 원이상",
-  //     work_date: "2022-04-14",
-  //     work_place: "강남",
-  //     content: "테스트 내용입니다",
-  //     createdAt: "2022-03-03",
-  //   },
-  //   {
-  //     id: 9,
-  //     user_id: 11,
-  //     nickname: "김코딩",
-  //     title: "테스트 제목입니다",
-  //     occupation: "주유소",
-  //     wage: "15,000 원이상",
-  //     work_date: "2022-04-14",
-  //     work_place: "강남",
-  //     content: "테스트 내용입니다",
-  //     createdAt: "2022-03-03",
-  //   },
-  // ];
   const list = {
     occupation: [
       '카페',
@@ -249,11 +195,9 @@ export const MainPosts = ({ setCurrentPost }) => {
     ],
     work_place: ['강남', '강서', '강동', '강북'],
   };
-  //전체 게시물 서버로부터 요청
-  //state로 관리
-  //일단 handleCheck 클릭 시 e.target.id 배열로 관리 (state로 관리?)
-  //검색 버튼 클릭 시 객체안에있는 배열들 검색
+
   const [allPost, setAllPost] = useState('');
+  const [allPostCopy, setAllPostCopy] = useState('');
   const [filterPost, setFilterPost] = useState({
     occupation: [],
     wage: [],
@@ -285,7 +229,8 @@ export const MainPosts = ({ setCurrentPost }) => {
   //데이타 비교를위한 숫자타입으로 변경
   const setWageNum = (str) => {
     //9,160 원이상(문자열) -> 9160(숫자) 변경 함수
-    let split = str.split(' ')[0].split(',');
+
+    let split = str.split('원')[0].split(',');
     return Number(split[0] + split[1]);
   };
   const handlePikerValue = (date) => {
@@ -295,28 +240,9 @@ export const MainPosts = ({ setCurrentPost }) => {
     setFilterPost({ ...filterPost, endDay: date });
   };
 
-  //! 필터 가져오기 기능
-  useEffect(() => {
-    if (local.getItem('occupation')) {
-      let parser = local.getItem('occupation');
-      let arr = JSON.parse(parser);
-      arr.forEach((el) => filterPost.occupation.push(el));
-    }
-    if (local.getItem('wage')) {
-      let parser = local.getItem('wage');
-      let arr = JSON.parse(parser);
-      arr.forEach((el) => filterPost.wage.push(el));
-    }
-    if (local.getItem('work_place')) {
-      let parser = local.getItem('work_place');
-      let arr = JSON.parse(parser);
-      arr.forEach((el) => filterPost.work_place.push(el));
-    }
-  }, []);
-
   //!필터 기능
   useEffect(() => {
-    let copy = [...allPost];
+    let copy = [...allPostCopy];
     let wageArr = [...filterPost.wage];
 
     //체크 시급 배열중 최소값 구하기
@@ -341,17 +267,9 @@ export const MainPosts = ({ setCurrentPost }) => {
     });
     setAllPost([...filter]);
   }, [filterPost]);
-  //  https://notefolio.net/heedesign/153651 여기 접속해보자
-  //! 필터 저장 기능
-  const filterMemory = () => {
-    console.log('필터 기억 눌렀니?', filterPost);
-    local.setItem('occupation', JSON.stringify(filterPost.occupation));
-    local.setItem('wage', JSON.stringify(filterPost.wage));
-    local.setItem('work_place', JSON.stringify(filterPost.work_place));
-  };
+
   //! 초기화
   const filterRemove = () => {
-    local.clear();
     setFilterPost({
       occupation: [],
       wage: [],
@@ -367,9 +285,8 @@ export const MainPosts = ({ setCurrentPost }) => {
         headers: { 'Content-Type': 'application/json' },
       })
       .then((res) => {
-        console.log(res);
-        console.log(res.data.boardList);
         setAllPost(res.data.boardList);
+        setAllPostCopy(res.data.boardList);
       })
       .catch((err) => {
         console.log(err, '전체 게시물 불러오기 err');
@@ -378,99 +295,100 @@ export const MainPosts = ({ setCurrentPost }) => {
 
   return (
     <div
-      style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        backgroundColor: 'whitesmoke',
+      }}
     >
       <FilterBack className={isFilterBox ? 'on' : 'off'}>
-        <FilterList>
-          <FilterTitle>직종</FilterTitle>
-          <FilterElementList>
-            {list.occupation.map((el, idx) => (
-              <div key={idx}>
-                <input
-                  type="checkbox"
-                  id={el}
-                  onChange={handleCheck}
-                  value="occupation"
-                  checked={filterPost.occupation.includes(el)}
-                ></input>
-                <label htmlFor={el}>{el}</label>
-              </div>
-            ))}
-          </FilterElementList>
-        </FilterList>
-        <Line />
-        <FilterList>
-          <FilterTitle>시급</FilterTitle>
-          <FilterElementList>
-            {list.wage.map((el, idx) => (
-              <div key={idx}>
-                <input
-                  type="checkbox"
-                  id={el}
-                  onChange={handleCheck}
-                  value="wage"
-                  checked={filterPost.wage.includes(el)}
-                ></input>
-                <label htmlFor={el}>{el}</label>
-              </div>
-            ))}
-          </FilterElementList>
-        </FilterList>
-        <Line />
-        <FilterList>
-          <FilterTitle>위치</FilterTitle>
-          <FilterElementList>
-            {list.work_place.map((el, idx) => (
-              <div key={idx}>
-                <input
-                  type="checkbox"
-                  id={el}
-                  onChange={handleCheck}
-                  value="work_place"
-                  checked={filterPost.work_place.includes(el)}
-                ></input>
-                <label htmlFor={el}>{el}</label>
-              </div>
-            ))}
-          </FilterElementList>
-        </FilterList>
-        <Line />
-        <FilterList>
-          <FilterTitle>날짜</FilterTitle>
-          <FilterElementList>
-            <div
-              style={{ display: 'flex', width: '130px', textAlign: 'center' }}
-            >
+        <div>
+          <FilterList className="calenda">
+            <FilterElementList className="calenda">
+              <FilterTitle className="day">날짜</FilterTitle>
               <CalendaMain
                 className="main"
                 name="startDate"
                 onChange={handlePikerValue}
               ></CalendaMain>
-              <div>부터</div>
-            </div>
-            <CalendaMain
-              className="main"
-              name="endDate"
-              onChange={handlePikerValue1}
-            ></CalendaMain>
-          </FilterElementList>
-        </FilterList>
-        <div style={{ position: 'absolute', bottom: '5px', right: '30px' }}>
-          <button
-            onClick={() => {
-              filterMemory();
-            }}
-          >
-            필터 기억
-          </button>
-          <button
+              <div
+                style={{ position: 'absolute', top: '29px', right: '165px' }}
+              >
+                ~
+              </div>
+              <CalendaMain
+                className="main"
+                name="endDate"
+                onChange={handlePikerValue1}
+              ></CalendaMain>
+            </FilterElementList>
+          </FilterList>
+        </div>
+        <FliterBody>
+          <FilterList>
+            <FilterTitle>직종</FilterTitle>
+            <FilterElementList>
+              {list.occupation.map((el, idx) => (
+                <div key={idx} style={{ marginBottom: '7px' }}>
+                  <InputBox
+                    type="checkbox"
+                    id={el}
+                    onChange={handleCheck}
+                    value="occupation"
+                    checked={filterPost.occupation.includes(el)}
+                  ></InputBox>
+                  <label htmlFor={el}>{el}</label>
+                </div>
+              ))}
+            </FilterElementList>
+          </FilterList>
+          <Line />
+          <FilterList>
+            <FilterTitle>시급</FilterTitle>
+            <FilterElementList>
+              {list.wage.map((el, idx) => (
+                <div key={idx} style={{ marginBottom: '10px' }}>
+                  <input
+                    type="checkbox"
+                    id={el}
+                    onChange={handleCheck}
+                    value="wage"
+                    checked={filterPost.wage.includes(el)}
+                  ></input>
+                  <label htmlFor={el}>{el}</label>
+                </div>
+              ))}
+            </FilterElementList>
+          </FilterList>
+          <Line />
+          <FilterList>
+            <FilterTitle>위치</FilterTitle>
+            <FilterElementList>
+              {list.work_place.map((el, idx) => (
+                <div key={idx} style={{ marginBottom: '12px' }}>
+                  <input
+                    type="checkbox"
+                    id={el}
+                    onChange={handleCheck}
+                    value="work_place"
+                    checked={filterPost.work_place.includes(el)}
+                  ></input>
+                  <label htmlFor={el}>{el}</label>
+                </div>
+              ))}
+            </FilterElementList>
+          </FilterList>
+        </FliterBody>
+        <InitializeBtnBack>
+          <InitializeBtn
             onClick={() => {
               filterRemove();
             }}
           >
             초기화
-          </button>
-        </div>
+          </InitializeBtn>
+        </InitializeBtnBack>
       </FilterBack>
       <div
         style={{
@@ -479,22 +397,32 @@ export const MainPosts = ({ setCurrentPost }) => {
           flexDirection: 'column',
         }}
       >
-        <button onClick={handleFilterBoxBtn}>버튼</button>
+        <FilterSearchBtn onClick={handleFilterBoxBtn}>
+          <div>{isFilterBox ? '접기' : '검색'}</div>
+
+          {isFilterBox ? (
+            <AiFillCaretUp size={20} />
+          ) : (
+            <AiFillCaretDown size={20} />
+          )}
+        </FilterSearchBtn>
       </div>
       <PostBackground>
         {allPost.length
           ? allPost.map((post) => {
               return (
                 <Post onClick={() => handlePost(post)} key={post.id}>
-                  <img
-                    className="work_img"
-                    src={`img/img_work/${post.occupation}.jpeg`}
-                  />
+                  <img src={`img/img_work/${post.occupation}.jpeg`} />
                   <PostContents>
                     <div>시급 : {post.wage}</div>
                     <div>직종 : {post.occupation}</div>
                     <div>위치 : {post.work_place}</div>
-                    <div>내용 : {post.title}</div>
+                    <div>
+                      내용 :{' '}
+                      {post.title.length < 13
+                        ? post.title
+                        : `${post.title.slice(0, 10)}...`}
+                    </div>
                   </PostContents>
                 </Post>
               );

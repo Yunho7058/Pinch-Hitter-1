@@ -6,6 +6,7 @@ const { Board, User, applicant } = require('../models');
 
 module.exports = {
   createBoard: async (req, res) => {
+    console.log('여기');
     const resObject = await createBoard(req);
     res.status(resObject.code).send(resObject.message);
   },
@@ -18,6 +19,7 @@ module.exports = {
     res.status(resObject.code).send(resObject.message);
   },
   getAllBoard: async (req, res) => {
+    console.log('1번');
     try {
       const boardList = await Board.findAll({
         include: [

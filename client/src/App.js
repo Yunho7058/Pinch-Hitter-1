@@ -57,6 +57,7 @@ function App() {
               getUserInfo={getUserInfo}
               userInfo={userInfo}
               isLogin={isLogin}
+              setIsLogin={setIsLogin}
             />
           }
         />
@@ -78,6 +79,7 @@ function App() {
             <EditPost
               getUserInfo={getUserInfo}
               isLogin={isLogin}
+              setIsLogin={setIsLogin}
               userInfo={userInfo}
               currentPost={currentPost}
             />
