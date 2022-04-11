@@ -52,16 +52,14 @@ module.exports = {
             res.status(401).json({ message: '로그인 해주세요' });
           } else {
             try {
-              console.log(req.body);
-      
-              await Board.destroy({ where: { id: board.id } });
+              await Board.update( board, { where: { id: board.id } });
               resObject.code = 201;
-              resObject.message = '게시글이 삭제되었습니다';
+              resObject.message = '게시글이 수정되었습니다';
               return resObject;
             } catch (err) {
               console.log(err);
               resObject.code = 400;
-              resObject.message = '게시글을 삭제하지 못하였습니다';
+              resObject.message = '게시글을 수정하지 못하였습니다';
               return resObject;
             }
           }
