@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import DatePicker from "react-datepicker"; // 날짜선택 라이브러리
-import "react-datepicker/dist/react-datepicker.css"; // 달력CSS
-import { ko } from "date-fns/esm/locale"; // 달력 한글 표시
-import styled from "styled-components";
+import React, { useState } from 'react';
+import DatePicker from 'react-datepicker'; // 날짜선택 라이브러리
+import 'react-datepicker/dist/react-datepicker.css'; // 달력CSS
+import { ko } from 'date-fns/esm/locale'; // 달력 한글 표시
+import styled from 'styled-components';
 
 // CreatPost.js 파일의 Styled Component 모음
 export const WrapperDiv = styled.div`
@@ -13,9 +13,9 @@ export const WrapperDiv = styled.div`
   background-color: whitesmoke;
   width: 100%;
   height: 100vh;
-  @media screen and (max-width: 1080px){
-      width: 100%;
-      height: 100%;
+  @media screen and (max-width: 1080px) {
+    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -36,9 +36,9 @@ export const Body = styled.body`
   background-color: white;
   width: 80%;
   height: 90vh;
-  @media screen and (max-width: 1080px){
-      width: 80%;
-      height: 80%;
+  @media screen and (max-width: 1080px) {
+    width: 80%;
+    height: 80%;
   }
 `;
 
@@ -47,13 +47,11 @@ export const SectorWrapper = styled.div`
   margin-top: 1.5rem;
 `;
 
-
 export const TitleDiv = styled.div`
   font-weight: bold;
   font-size: 30px;
   color: black;
   margin-top: 1rem;
-  
 `;
 
 export const TitleInput = styled.input`
@@ -78,7 +76,6 @@ export const RTitleInput = styled.input`
   border: 1px solid white;
   border-bottom: 1px solid gray;
   border-radius: 3px;
-  
 `;
 
 export const IndexDiv = styled.div`
@@ -127,16 +124,11 @@ export const CompleteButton = styled.button`
   border: 2px solid #006fff;
   border-radius: 100px;
   cursor: pointer;
-  &:hover{
-      background-color: #006fff;
-      color: white;
+  &:hover {
+    background-color: #006fff;
+    color: white;
   }
 `;
-
-
-
-
-
 
 // 셀렉트 박스 Styled Component
 export const Select = styled.select`
@@ -159,9 +151,7 @@ export const Select = styled.select`
 
 `;
 
-const Option = styled.option`
-  
-`;  
+const Option = styled.option``;
 
 // 달력 Styled Component
 const StyleDatePicker = styled(DatePicker)`
@@ -175,10 +165,14 @@ const StyleDatePicker = styled(DatePicker)`
   font-size: 25px;
   color: #006fff;
   cursor: pointer;
+  &.main {
+    position: relative;
+    color: black;
+    font-size: 18.5px;
+    width: 140px;
+    height: 30px;
+  }
 `;
-
-
-
 
 // 셀렉트박스 지역
 export const SelectBoxLocation = (props) => {
@@ -258,18 +252,38 @@ export const SelectBoxPay = (props) => {
 
 // 달력에서 날짜선택
 export const Calenda = (props) => {
-    const [startDate, setStartDate] = useState("");
-   
-    return (
-      <StyleDatePicker
-        dateFormat="yyyy-MM-dd"
-        selected={startDate}
-        onChange={(date) => {
-          setStartDate(date)
-          props.onChange(date)}
-        }
-        placeholderText="- 선 택 -"
-        locale={ko}
-      />
-    );
-  };
+  const [startDate, setStartDate] = useState('');
+
+  return (
+    <StyleDatePicker
+      dateFormat="yyyy-MM-dd"
+      selected={startDate}
+      onChange={(date) => {
+        setStartDate(date);
+        props.onChange(date);
+      }}
+      placeholderText="- 선 택 -"
+      locale={ko}
+    />
+  );
+};
+
+export const CalendaMain = (props) => {
+  const [startDate, setStartDate] = useState('');
+
+  return (
+    <StyleDatePicker
+      className="main"
+      dateFormat="yyyy-MM-dd"
+      selected={startDate}
+      onChange={(date) => {
+        setStartDate(date);
+        props.onChange(date);
+      }}
+      timeFormat="HH:mm"
+      timeCaption="time"
+      placeholderText="- 선 택 -"
+      locale={ko}
+    />
+  );
+};

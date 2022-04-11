@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import Login from '../Pages/Login';
 import Signup from '../Pages/Signup';
 import { RouteBtn } from './RouteBtn';
@@ -26,9 +26,9 @@ export const FixButton = styled.button`
   border-radius: 100px;
   cursor: pointer;
   float: left;
-  &:hover{
-      background-color: #006fff;
-      color: white;
+  &:hover {
+    background-color: #006fff;
+    color: white;
   }
 `;
 
@@ -44,9 +44,9 @@ export const DeleteButton = styled.button`
   border-radius: 100px;
   cursor: pointer;
   float: right;
-  &:hover{
-      background-color: orangered;
-      color: white;
+  &:hover {
+    background-color: orangered;
+    color: white;
   }
 `;
 
@@ -82,9 +82,9 @@ export const ModalButton = styled.button`
   border: 2px solid #006fff;
   border-radius: 100px;
   cursor: pointer;
-  &:hover{
-      background-color: #006fff;
-      color: white;
+  &:hover {
+    background-color: #006fff;
+    color: white;
   }
 `;
 
@@ -153,7 +153,6 @@ export const RModal = (props) => {
     setIsModal(!isModal);
   };
 
-  
   return (
     <>
       {isModal ? (
@@ -195,4 +194,3 @@ export const RModal = (props) => {
     </>
   );
 };
-

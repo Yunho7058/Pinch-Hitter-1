@@ -31,6 +31,11 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+const { User , Board, applicant} = sequelize.models;
+
+// Board.belongsTo(User);
+// User.hasMany(Board);
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

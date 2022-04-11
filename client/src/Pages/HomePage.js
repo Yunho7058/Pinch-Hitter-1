@@ -3,43 +3,27 @@ import Header from '../Components/Header';
 import { useEffect } from 'react';
 import axios from 'axios';
 
-let url = "https://localhost:4000"
-
-function HomePage({ 
+function HomePage({
   hadleLoginVerification,
   isLogin,
+  setIsLogin,
   handleLogout,
   postClickNav,
   allPost,
   setAllPost,
-  setNowPost
+  setCurrentPost,
+  getUserInfo,
 }) {
-
-  
-  useEffect(() => {
-    console.log('hompage 20번줄')
-    axios
-      .get('https://localhost:4000/notice_board', {
-        withCredentials: true,
-      })
-      .then(function(res){
-        setAllPost(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },[]);
-
   return (
     <>
       <Header
         hadleLoginVerification={hadleLoginVerification}
         isLogin={isLogin}
         handleLogout={handleLogout}
+        setIsLogin={setIsLogin}
+        getUserInfo={getUserInfo}
       />
-      <MainPosts 
-        allPost={allPost}
-        setNowPost={setNowPost}/>
+      <MainPosts allPost={allPost} setCurrentPost={setCurrentPost} />
     </>
   );
 }

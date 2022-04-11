@@ -1,29 +1,37 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Notice_Board extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class Board extends Model {
     static associate(models) {
-      // define association here
+      Board.belongsTo(models.User, {
+        foreignKey: "user_id",
+        targetKey: "id",
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      });
+      Board.belongsToMany(models.User, {
+        through: "applicant",
+        foreignKey: "board_id",
+        sourceKey: "id",
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      });
     }
   }
-  Notice_Board.init({
-    user_id: DataTypes.STRING,
-    title: DataTypes.STRING,
-    occupation: DataTypes.STRING,
-    wage: DataTypes.STRING,
-    work_date: DataTypes.STRING,
-    work_place: DataTypes.STRING,
-    content: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Notice_Board',
-  });
-  return Notice_Board;
+  Board.init(
+    {
+      user_id: DataTypes.INTEGER,
+      title: DataTypes.STRING,
+      occupation: DataTypes.STRING,
+      wage: DataTypes.STRING,
+      work_date: DataTypes.STRING,
+      work_place: DataTypes.STRING,
+      content: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "Board",
+    }
+  );
+  return Board;
 };
